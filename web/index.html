@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Lifecycle Management (CLM)</title>
+    <title>CLM Control Plane | Enterprise Certificate Lifecycle Management</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,18 +11,18 @@
 </head>
 <body>
     <div class="app-layout">
-        <!-- Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="brand">
                 <div class="logo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                     </svg>
                 </div>
                 <div>
                     <h2>CLM Control Plane</h2>
-                    <span class="badge badge-purple">Hybrid Enclave</span>
+                    <span class="sub">v2.4 Enterprise &bull; Hybrid Enclave</span>
                 </div>
             </div>
 
@@ -30,102 +30,192 @@
                 <a href="#dashboard" class="nav-item active" onclick="switchTab('dashboard')">
                     <span class="icon">📊</span> Overview & Health
                 </a>
-                <a href="#certificates" class="nav-item" onclick="switchTab('certificates')">
-                    <span class="icon">📜</span> Certificates Inventory
+
+                <div class="nav-category">Core & Governance</div>
+                <a href="#orgs" class="nav-item" onclick="switchTab('orgs')">
+                    <span class="icon">🏢</span> 1. Global Orgs & Admin <span class="tag">35 items</span>
                 </a>
-                <a href="#requests" class="nav-item" onclick="switchTab('requests')">
-                    <span class="icon">⏳</span> Requests & Approvals
+                <a href="#billing" class="nav-item" onclick="switchTab('billing')">
+                    <span class="icon">💳</span> 2. Plans & Billing <span class="tag">50 items</span>
                 </a>
+                <a href="#tenants" class="nav-item" onclick="switchTab('tenants')">
+                    <span class="icon">🏛️</span> 3. Multi-Tenancy <span class="tag">40 items</span>
+                </a>
+                <a href="#iam" class="nav-item" onclick="switchTab('iam')">
+                    <span class="icon">👥</span> 4. IAM, Teams & Roles <span class="tag">37 items</span>
+                </a>
+                <a href="#sso" class="nav-item" onclick="switchTab('sso')">
+                    <span class="icon">🔑</span> 5. SSO & SCIM IdP <span class="tag">30 items</span>
+                </a>
+                <a href="#cloud" class="nav-item" onclick="switchTab('cloud')">
+                    <span class="icon">☁️</span> 6. Multi-Cloud Accounts <span class="tag">40 items</span>
+                </a>
+
+                <div class="nav-category">Cryptography & Fleet</div>
                 <a href="#gateways" class="nav-item" onclick="switchTab('gateways')">
-                    <span class="icon">🛡️</span> Satellite Gateways
+                    <span class="icon">🛡️</span> 7. Satellite Gateways <span class="tag">45 items</span>
                 </a>
-                <a href="#cbom" class="nav-item" onclick="switchTab('cbom')">
-                    <span class="icon">⚛️</span> CBOM & Post-Quantum
+                <a href="#jobs" class="nav-item" onclick="switchTab('jobs')">
+                    <span class="icon">⚡</span> 8. Deployment Jobs <span class="tag">45 items</span>
+                </a>
+                <a href="#certificates" class="nav-item" onclick="switchTab('certificates')">
+                    <span class="icon">📜</span> 9. Certificates & PQC <span class="tag">40 items</span>
+                </a>
+                <a href="#ca" class="nav-item" onclick="switchTab('ca')">
+                    <span class="icon">🌐</span> 10. CA Connectors & DCV <span class="tag">35 items</span>
+                </a>
+                <a href="#discovery" class="nav-item" onclick="switchTab('discovery')">
+                    <span class="icon">📡</span> 11. TLS Discovery Scans <span class="tag">30 items</span>
+                </a>
+                <a href="#policy" class="nav-item" onclick="switchTab('policy')">
+                    <span class="icon">⚖️</span> 12. Policy Engine & SoD <span class="tag">30 items</span>
+                </a>
+
+                <div class="nav-category">Operations & Security</div>
+                <a href="#health" class="nav-item" onclick="switchTab('health')">
+                    <span class="icon">🩺</span> 13. Platform Health <span class="tag">30 items</span>
+                </a>
+                <a href="#metering" class="nav-item" onclick="switchTab('metering')">
+                    <span class="icon">📈</span> 14. Usage & Quotas <span class="tag">25 items</span>
+                </a>
+                <a href="#secops" class="nav-item" onclick="switchTab('secops')">
+                    <span class="icon">🚨</span> 15. Security & Threats <span class="tag">30 items</span>
                 </a>
                 <a href="#audit" class="nav-item" onclick="switchTab('audit')">
-                    <span class="icon">⛓️</span> Merkle Audit Ledger
+                    <span class="icon">⛓️</span> 16. Audit & Merkle Proofs <span class="tag">30 items</span>
+                </a>
+                <a href="#notifications" class="nav-item" onclick="switchTab('notifications')">
+                    <span class="icon">🔔</span> 17. Notifications & Alerts <span class="tag">25 items</span>
+                </a>
+                <a href="#support" class="nav-item" onclick="switchTab('support')">
+                    <span class="icon">🎫</span> 18. Customer Support SLA <span class="tag">25 items</span>
+                </a>
+
+                <div class="nav-category">Developer & Architecture</div>
+                <a href="#database" class="nav-item" onclick="switchTab('database')">
+                    <span class="icon">💾</span> 19. Database & RLS Schema <span class="tag">25 items</span>
+                </a>
+                <a href="#developer" class="nav-item" onclick="switchTab('developer')">
+                    <span class="icon">💻</span> 20. Developer API & SDK <span class="tag">30 items</span>
+                </a>
+                <a href="#cicd" class="nav-item" onclick="switchTab('cicd')">
+                    <span class="icon">📦</span> 21. CI/CD & SBOM Supply <span class="tag">25 items</span>
+                </a>
+                <a href="#dr" class="nav-item" onclick="switchTab('dr')">
+                    <span class="icon">🔄</span> 22. Disaster Recovery & DR <span class="tag">25 items</span>
+                </a>
+                <a href="#analytics" class="nav-item" onclick="switchTab('analytics')">
+                    <span class="icon">📉</span> 23. Analytics & Financial <span class="tag">25 items</span>
+                </a>
+                <a href="#branding" class="nav-item" onclick="switchTab('branding')">
+                    <span class="icon">🎨</span> 24. White-Label Branding <span class="tag">20 items</span>
+                </a>
+                <a href="#architecture" class="nav-item" onclick="switchTab('architecture')">
+                    <span class="icon">📐</span> 25. Enclave Architecture <span class="tag">22 items</span>
+                </a>
+                <a href="#ai" class="nav-item" onclick="switchTab('ai')">
+                    <span class="icon">🤖</span> 26. AI Risk & Auto-Renewal <span class="tag">20 items</span>
+                </a>
+                <a href="#integrations" class="nav-item" onclick="switchTab('integrations')">
+                    <span class="icon">🔌</span> 27. Ecosystem Integrations <span class="tag">25 items</span>
                 </a>
             </nav>
 
             <div class="sidebar-footer">
                 <div class="tenant-selector">
-                    <label>Tenant Boundary</label>
+                    <label>Active Tenant Boundary</label>
                     <select id="tenantSelect" onchange="reloadAll()">
                         <option value="tenant_default">Acme Global (tenant_default)</option>
+                        <option value="tenant_eu_fin">Acme EU Finance (tenant_eu_fin)</option>
+                        <option value="tenant_apac">Acme APAC Retail (tenant_apac)</option>
                     </select>
                 </div>
                 <div class="system-status">
-                    <span class="status-dot green"></span>
-                    <span>Control Plane: Online</span>
+                    <div>
+                        <span class="status-dot green"></span>
+                        <span id="apiStatusText">Live API Mode</span>
+                    </div>
+                    <span id="apiLatencyText" style="font-size: 0.7rem; color: #64748b;">4ms</span>
                 </div>
             </div>
         </aside>
 
-        <!-- Main Content -->
+        <!-- Main Content Area -->
         <main class="content-area">
             <header class="top-bar">
                 <div class="breadcrumbs">
                     <span class="crumb-root">CLM</span> / <span id="currentViewTitle">Overview & Health</span>
                 </div>
+
                 <div class="actions">
+                    <span class="api-mode-pill" onclick="openApiConfigModal()" id="apiModeBadge">
+                        🟢 Mode: <strong id="currentModeLabel">Auto Live / Standalone</strong>
+                    </span>
                     <button class="btn btn-secondary" onclick="openEnrollGatewayModal()">+ Enroll Gateway</button>
                     <button class="btn btn-primary" onclick="openRequestCertModal()">+ Request Certificate</button>
                 </div>
             </header>
 
-            <!-- Dashboard Tab -->
+            <!-- TAB 0: DASHBOARD OVERVIEW -->
             <section id="view-dashboard" class="view-panel active">
+                <div class="view-header">
+                    <div>
+                        <h2>Global Certificate Lifecycle Management</h2>
+                        <p>Real-time control plane orchestrating in-VPC satellite key enclaves, SC-081 automated 47-day renewals, and post-quantum cryptography.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="reloadAll()">↻ Refresh Telemetry</button>
+                </div>
+
                 <div class="metrics-grid">
                     <div class="metric-card">
                         <span class="metric-title">Active Certificates</span>
-                        <h3 id="statTotalCerts">0</h3>
+                        <h3 id="statTotalCerts">4</h3>
                         <span class="metric-sub text-green">100% Automated renewals</span>
                     </div>
-                    <div class="metric-card">
-                        <span class="metric-title">Expiring Soon (&lt; 30d)</span>
-                        <h3 id="statExpiringSoon" class="text-amber">0</h3>
+                    <div class="metric-card amber">
+                        <span class="metric-title">Expiring in &lt; 30d</span>
+                        <h3 id="statExpiringSoon" class="text-amber">1</h3>
                         <span class="metric-sub">Auto-renewal scheduled</span>
                     </div>
-                    <div class="metric-card">
-                        <span class="metric-title">Online Gateways</span>
-                        <h3 id="statGateways" class="text-blue">0</h3>
-                        <span class="metric-sub">In-VPC Enclaves</span>
+                    <div class="metric-card purple">
+                        <span class="metric-title">Satellite Gateways</span>
+                        <h3 id="statGateways" class="text-purple">2</h3>
+                        <span class="metric-sub">In-VPC Enclave Keystores</span>
                     </div>
-                    <div class="metric-card">
-                        <span class="metric-title">Crypto Agility (PQC)</span>
+                    <div class="metric-card cyan">
+                        <span class="metric-title">Post-Quantum Agility</span>
                         <h3 id="statPQCReadiness">Ready</h3>
-                        <span class="metric-sub text-purple">ML-DSA / Hybrid capable</span>
+                        <span class="metric-sub text-cyan">ML-DSA / Dual-Sign Capable</span>
                     </div>
                 </div>
 
-                <!-- Risk & Expiry Heatmap -->
                 <div class="panel-section">
                     <div class="section-header">
                         <h3>Certificate Expiry & Risk Distribution</h3>
                         <span class="badge badge-info">SC-081 Ready (47-day cycle)</span>
                     </div>
                     <div class="heatmap-bar">
-                        <div id="heatCritical" class="heat-segment heat-red" style="width: 5%" title="Expired / Critical Risk"></div>
-                        <div id="heatWarning" class="heat-segment heat-amber" style="width: 15%" title="Expiring in < 30 days"></div>
-                        <div id="heatHealthy" class="heat-segment heat-green" style="width: 80%" title="Healthy Active Certificates"></div>
+                        <div id="heatCritical" class="heat-segment heat-red" style="width: 5%" title="Critical Risk"></div>
+                        <div id="heatWarning" class="heat-segment heat-amber" style="width: 25%" title="Renewal Window (< 30d)"></div>
+                        <div id="heatHealthy" class="heat-segment heat-green" style="width: 70%" title="Healthy Active Certificates"></div>
                     </div>
                     <div class="heatmap-legend">
-                        <span><span class="dot red"></span> Critical / Expired</span>
-                        <span><span class="dot amber"></span> Renewal Window (&lt; 30d)</span>
+                        <span><span class="dot red"></span> Critical / Expired (&gt;75 Risk)</span>
+                        <span><span class="dot amber"></span> Renewal Window (&lt;30d)</span>
                         <span><span class="dot green"></span> Compliant & Healthy</span>
                     </div>
                 </div>
 
-                <!-- Recent Activity Table -->
                 <div class="panel-section">
                     <div class="section-header">
-                        <h3>Managed Certificates Summary</h3>
+                        <h3>Active Certificates Snapshot</h3>
+                        <button class="btn btn-outline btn-sm" onclick="switchTab('certificates')">View All &rarr;</button>
                     </div>
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Common Name / SAN</th>
+                                    <th>Common Name / Subject DN</th>
                                     <th>Status</th>
                                     <th>Algorithm</th>
                                     <th>Issuer</th>
@@ -134,204 +224,866 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="dashboardCertsTable">
-                                <tr><td colspan="7" class="text-center">Loading certificates...</td></tr>
+                            <tbody id="dashboardCertsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 1: GLOBAL PLATFORM & ORGS -->
+            <section id="view-orgs" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 1: Global Platform & Organization Management</h2>
+                        <p>Enterprise multi-organization governance, KYC verification workflows, risk tier assessments, and Super Admin MFA audit controls.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openNewOrgModal()">+ Register Organization</button>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card"><span class="metric-title">Registered Organizations</span><h3 id="statOrgsCount">1</h3><span class="metric-sub">Across 3 regions</span></div>
+                    <div class="metric-card green"><span class="metric-title">Verified Status</span><h3>100%</h3><span class="metric-sub">KYC / Tax ID Approved</span></div>
+                    <div class="metric-card amber"><span class="metric-title">Risk Level</span><h3>Low (12)</h3><span class="metric-sub">Continuous assessment</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Super Admin MFA</span><h3>Enforced</h3><span class="metric-sub">FIDO2 / WebAuthn required</span></div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Organization Registry</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Org ID</th><th>Name</th><th>Slug</th><th>Status</th><th>Tier</th><th>Risk Score</th><th>Verified Documents</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="orgsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 2: SUBSCRIPTION PLANS & BILLING -->
+            <section id="view-billing" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 2: Subscription Plans & Billing Management</h2>
+                        <p>Subscription plans, automated invoice generation, payment gateway reconciliation, proration, and dunning management.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Creating billing checkout session...')">+ New Subscription</button>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card"><span class="metric-title">Active Plan</span><h3>Enterprise Plus</h3><span class="metric-sub">$2,499 / month</span></div>
+                    <div class="metric-card green"><span class="metric-title">Payment Status</span><h3>Good Standing</h3><span class="metric-sub">Stripe Autopay Enabled</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Next Invoice Date</span><h3>Dec 1, 2026</h3><span class="metric-sub">Prorated adjustments: $0.00</span></div>
+                    <div class="metric-card cyan"><span class="metric-title">Currency</span><h3>USD ($)</h3><span class="metric-sub">Multi-currency ready</span></div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Recent Invoices & Reconciliation</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Invoice #</th><th>Billing Period</th><th>Amount</th><th>Tax / GST</th><th>Status</th><th>Paid At</th><th>PDF Receipt</th></tr>
+                            </thead>
+                            <tbody id="invoicesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 3: MULTI-TENANCY & TENANTS -->
+            <section id="view-tenants" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 3: Multi-Tenancy & Tenant Management</h2>
+                        <p>Cryptographic tenant isolation boundaries, PostgreSQL Row-Level Security, regional data residency, and storage quotas.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Provisioning new tenant boundary...')">+ Provision Tenant</button>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card"><span class="metric-title">Active Tenants</span><h3>3</h3><span class="metric-sub">Isolated schema boundaries</span></div>
+                    <div class="metric-card green"><span class="metric-title">Isolation Engine</span><h3>Postgres RLS</h3><span class="metric-sub">FORCE ROW LEVEL SECURITY</span></div>
+                    <div class="metric-card cyan"><span class="metric-title">Max Gateways / Tenant</span><h3>50</h3><span class="metric-sub">Enclave quota limits</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Data Residency</span><h3>EU & US West</h3><span class="metric-sub">GDPR / CCPA Compliant</span></div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Tenant Enclaves & Resource Limits</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Tenant ID</th><th>Name</th><th>Data Residency</th><th>Status</th><th>Cert Quota</th><th>Gateway Quota</th><th>Storage Used</th></tr>
+                            </thead>
+                            <tbody id="tenantsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 4: IAM, TEAMS & ROLES -->
+            <section id="view-iam" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 4: Departments, Teams & IAM User Management</h2>
+                        <p>Role-Based Access Control (RBAC), Segregation of Duties (SoD), temporary Just-In-Time privileged access grants, and audit trails.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Invite user modal...')">+ Invite Member</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Active Users & Role Assignments</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>User ID</th><th>Email</th><th>Full Name</th><th>Role</th><th>Department</th><th>MFA Status</th><th>Last Active</th></tr>
+                            </thead>
+                            <tbody id="usersTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 5: SSO & SCIM IDP -->
+            <section id="view-sso" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 5: Identity Providers, SSO & SCIM User Provisioning</h2>
+                        <p>SAML 2.0 and OIDC discovery federation with Okta, Microsoft Entra ID, Keycloak, and automated SCIM deprovisioning.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Connecting IdP...')">+ Connect Identity Provider</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Configured Identity Providers</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Provider</th><th>Protocol</th><th>Issuer URL / Domain</th><th>SCIM Sync</th><th>Status</th><th>Cert Rotation</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="ssoTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 6: MULTI-CLOUD ACCOUNTS -->
+            <section id="view-cloud" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 6: Multi-Cloud Accounts & Infrastructure Connectors</h2>
+                        <p>AWS Cross-Account IAM roles with External IDs, Azure Managed Identities, and GCP Workload Identity Federation.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openConnectCloudModal()">+ Connect Cloud Account</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Connected Cloud Providers</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Provider</th><th>Account ID</th><th>Account Name</th><th>Auth Type</th><th>Status</th><th>Last Synced</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="cloudTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 7: SATELLITE GATEWAYS -->
+            <section id="view-gateways" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 7: Satellite Gateway Fleet Management</h2>
+                        <p>Customer in-VPC enclaves ensuring private keys never leave local infrastructure. Outbound-only mTLS command polling.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openEnrollGatewayModal()">+ Enroll New Gateway</button>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card"><span class="metric-title">Enclave Fleet</span><h3 id="statFleetCount">2</h3><span class="metric-sub">AWS us-east-1 & Local</span></div>
+                    <div class="metric-card green"><span class="metric-title">Key Custody</span><h3>100% In-VPC</h3><span class="metric-sub">Zero key export to cloud</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Telemetry Health</span><h3>Nominal</h3><span class="metric-sub">Avg latency: 12ms</span></div>
+                    <div class="metric-card cyan"><span class="metric-title">HSM Support</span><h3>PKCS#11 Ready</h3><span class="metric-sub">CloudHSM / YubiHSM</span></div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Gateway Enclave Fleet</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Gateway ID</th><th>Name</th><th>Status</th><th>Keystore Custody</th><th>Version</th><th>Last Heartbeat</th><th>Policy Grace</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="gatewaysTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 8: DEPLOYMENT JOBS -->
+            <section id="view-jobs" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 8: Deployment Jobs & Multi-Target Orchestration</h2>
+                        <p>Automated certificate push to F5 BIG-IP, Nginx, Kubernetes ingress, and AWS ALB with canary rollout and automatic rollback.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openTriggerJobModal()">+ Trigger Deployment Job</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Recent Deployment Executions</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Job ID</th><th>Type</th><th>Certificate ID</th><th>Target</th><th>Status</th><th>Progress</th><th>Canary Weight</th><th>Created At</th></tr>
+                            </thead>
+                            <tbody id="jobsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 9: CERTIFICATES & PQC -->
+            <section id="view-certificates" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 9: Certificate Lifecycle, Cryptographic Inventory & PQC</h2>
+                        <p>Complete X.509 inventory with automated 47-day renewals (SC-081), risk scoring, and Post-Quantum (PQC) readiness.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openRequestCertModal()">+ Request Certificate</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header">
+                        <h3>Certificate Inventory</h3>
+                        <div class="filter-controls">
+                            <input type="text" id="certSearchInput" class="filter-input" placeholder="Filter by domain, SAN, algorithm..." oninput="filterCertTable()">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Fingerprint (SHA-256)</th><th>Subject DN</th><th>Algorithm / Size</th><th>Status</th><th>Validity Period</th><th>Owner / Team</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="fullCertsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 10: CA CONNECTORS & DCV -->
+            <section id="view-ca" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 10: CA Connectors, DCV & Trust Store Management</h2>
+                        <p>Unified issuance engine connecting to DigiCert, Sectigo, Let's Encrypt (ACME v2), and Private CAs with automated DNS-01 and CAA checks.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Adding CA connector...')">+ Add CA Connector</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Configured Certificate Authorities</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>CA Name</th><th>Type</th><th>DCV Methods</th><th>Failover Priority</th><th>Status</th><th>Supported Keys</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="caTable">
+                                <tr><td><strong>Builtin Private CA</strong></td><td>Internal Enclave</td><td>Local Approval</td><td>Priority 1</td><td><span class="badge badge-green">Active</span></td><td>RSA-2048/4096, ECDSA P-256/384, Ed25519</td><td><button class="btn btn-secondary btn-sm">Test</button></td></tr>
+                                <tr><td><strong>Let's Encrypt ACME v2</strong></td><td>Public Web PKI</td><td>DNS-01 CNAME, HTTP-01</td><td>Priority 2</td><td><span class="badge badge-green">Active</span></td><td>RSA, ECDSA</td><td><button class="btn btn-secondary btn-sm">Test</button></td></tr>
+                                <tr><td><strong>DigiCert CertCentral</strong></td><td>Public Commercial</td><td>DNS-01, CAA Check</td><td>Priority 3</td><td><span class="badge badge-info">Standby</span></td><td>All standard + EV/OV</td><td><button class="btn btn-secondary btn-sm">Test</button></td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
 
-            <!-- Certificates Tab -->
-            <section id="view-certificates" class="view-panel">
-                <div class="section-header">
-                    <h3>X.509 Certificate Inventory</h3>
-                    <div class="filter-controls">
-                        <input type="text" id="certSearchInput" placeholder="Filter by domain, SAN, or owner..." oninput="filterCertTable()">
+            <!-- MODULE 11: TLS DISCOVERY SCANS -->
+            <section id="view-discovery" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 11: Network Discovery, TLS Scanners & Shadow Assets</h2>
+                        <p>High-speed subnet handshake scanner mapping unmanaged certificates, weak ciphers, and shadow SSL deployments across enterprise networks.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openDiscoveryScanModal()">+ Launch Subnet Scan</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Scan Executions & Shadow Findings</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Scan ID</th><th>Target CIDR / Host</th><th>Status</th><th>Scanned Endpoints</th><th>Found Certs</th><th>Shadow / Unmanaged</th><th>Risk Flags</th></tr>
+                            </thead>
+                            <tbody id="discoveryTable"></tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Fingerprint (SHA-256)</th>
-                                <th>Subject DN</th>
-                                <th>Algorithm / Size</th>
-                                <th>Status</th>
-                                <th>Validity Period</th>
-                                <th>Owner / Team</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fullCertsTable">
-                            <tr><td colspan="7" class="text-center">Loading inventory...</td></tr>
-                        </tbody>
-                    </table>
+            </section>
+
+            <!-- MODULE 12: POLICY ENGINE & APPROVALS -->
+            <section id="view-policy" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 12: Policy-as-Code Engine & Approval Workflows</h2>
+                        <p>Segregation of Duties (SoD) peer approval enforcement, key length rules, CAA checks, and emergency dual-custody break-glass.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="openRequestCertModal()">+ Submit Request</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Pending Approval Requests (Dual-Control)</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Request ID</th><th>Common Name</th><th>Profile</th><th>Requester</th><th>Status</th><th>Created</th><th>Action</th></tr>
+                            </thead>
+                            <tbody id="requestsTable"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- Requests & Approvals Tab -->
-            <section id="view-requests" class="view-panel">
-                <div class="section-header">
-                    <h3>Certificate Requests & Peer Approvals</h3>
-                    <span class="badge badge-amber">Segregation of Duties Enforced</span>
+            <!-- MODULE 13: PLATFORM HEALTH -->
+            <section id="view-health" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 13: Platform Health, Service Map & Resilience</h2>
+                        <p>Microservice telemetry, database connectivity checks, background worker heartbeats, and dependency health tracking.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="loadHealthServices()">↻ Refresh Telemetry</button>
                 </div>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Request ID</th>
-                                <th>Common Name</th>
-                                <th>Profile</th>
-                                <th>Requester</th>
-                                <th>Status</th>
-                                <th>Created</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="requestsTable">
-                            <tr><td colspan="7" class="text-center">Loading requests...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Core Platform Services</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Service Name</th><th>Status</th><th>Latency</th><th>Uptime SLA</th><th>Last Health Check</th></tr>
+                            </thead>
+                            <tbody id="healthServicesTable"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- Gateways Tab -->
-            <section id="view-gateways" class="view-panel">
-                <div class="section-header">
-                    <h3>Satellite Gateway Fleet (In-VPC Enclaves)</h3>
-                    <span class="badge badge-purple">Keys never leave customer boundary</span>
+            <!-- MODULE 14: USAGE & QUOTAS -->
+            <section id="view-metering" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 14: Usage Metering, Rate Limiting & Resource Quotas</h2>
+                        <p>API token consumption metering, satellite gateway bandwidth tracking, and automated capacity threshold alarms.</p>
+                    </div>
                 </div>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Gateway ID</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Keystore Custody</th>
-                                <th>Version</th>
-                                <th>Last Heartbeat</th>
-                                <th>Policy Grace</th>
-                            </tr>
-                        </thead>
-                        <tbody id="gatewaysTable">
-                            <tr><td colspan="7" class="text-center">Loading gateways...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="metrics-grid">
+                    <div class="metric-card"><span class="metric-title">API Requests (Today)</span><h3>14,820</h3><span class="metric-sub">98.5% below rate limit</span></div>
+                    <div class="metric-card green"><span class="metric-title">Certificate Quota</span><h3>4 / 1,000</h3><span class="metric-sub">0.4% consumed</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Gateway Quota</span><h3>2 / 50</h3><span class="metric-sub">4% consumed</span></div>
+                    <div class="metric-card cyan"><span class="metric-title">Data Storage</span><h3>4.2 MB</h3><span class="metric-sub">PostgreSQL Ledger</span></div>
                 </div>
             </section>
 
-            <!-- CBOM Tab -->
-            <section id="view-cbom" class="view-panel">
-                <div class="section-header">
-                    <h3>Cryptographic Bill of Materials (CBOM) & PQC Readiness</h3>
-                    <button class="btn btn-secondary" onclick="exportCBOMJSON()">Export CycloneDX JSON</button>
+            <!-- MODULE 15: SECURITY & THREATS -->
+            <section id="view-secops" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 15: Security Operations, Threat Detection & Zero-Trust</h2>
+                        <p>Real-time threat monitoring, brute force detection, anomalous key access alerts, and IP allowlist enforcement.</p>
+                    </div>
                 </div>
-                <div class="cbom-view">
-                    <pre id="cbomContent">Generating CBOM...</pre>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Security Event Stream</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Timestamp</th><th>Severity</th><th>Event Type</th><th>Actor / IP</th><th>Details</th></tr>
+                            </thead>
+                            <tbody id="secEventsTable"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- Audit Tab -->
+            <!-- MODULE 16: AUDIT & MERKLE PROOFS -->
             <section id="view-audit" class="view-panel">
-                <div class="section-header">
-                    <h3>Cryptographic Audit Ledger & Merkle Proofs</h3>
+                <div class="view-header">
+                    <div>
+                        <h2>Module 16: Cryptographic Audit Ledger & Compliance Controls</h2>
+                        <p>Immutable append-only SHA-256 hash chains, Merkle tree root calculation, and Signed Tree Head (STH) independent verification.</p>
+                    </div>
                     <button class="btn btn-primary" onclick="verifyAuditLedger()">Verify Hash Chain & STH</button>
                 </div>
                 <div id="auditVerifyReport" class="audit-report-banner">
-                    Click "Verify Hash Chain & STH" to execute independent Merkle proof.
+                    Click "Verify Hash Chain & STH" to execute mathematical Merkle proof verification across all ledger blocks.
                 </div>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Seq #</th>
-                                <th>Timestamp</th>
-                                <th>Actor</th>
-                                <th>Action</th>
-                                <th>Target</th>
-                                <th>Policy Decision</th>
-                                <th>Event Hash</th>
-                            </tr>
-                        </thead>
-                        <tbody id="auditTable">
-                            <tr><td colspan="7" class="text-center">Loading audit events...</td></tr>
-                        </tbody>
-                    </table>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Cryptographic Ledger Entries</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Seq #</th><th>Timestamp</th><th>Action</th><th>Actor</th><th>Resource</th><th>Entry Hash</th><th>Prev Hash</th></tr>
+                            </thead>
+                            <tbody id="auditTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 17: NOTIFICATIONS & ALERTS -->
+            <section id="view-notifications" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 17: Notification Hub & Alert Routing</h2>
+                        <p>Multi-channel alerts for certificate expiry warnings, failed deployments, and gateway heartbeat timeouts via Slack, Teams, and Webhooks.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Sending test notification...')">+ Test Webhook</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Recent Notifications</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Timestamp</th><th>Channel</th><th>Recipient</th><th>Title</th><th>Status</th></tr>
+                            </thead>
+                            <tbody id="notificationsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 18: CUSTOMER SUPPORT SLA -->
+            <section id="view-support" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 18: Customer Support & SLA Ticketing</h2>
+                        <p>Enterprise ticketing system with automated SLA escalation, priority tracking, and engineer assignment.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Opening support ticket...')">+ Open Ticket</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Active Support Tickets</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Ticket ID</th><th>Subject</th><th>Priority</th><th>Status</th><th>SLA Deadline</th><th>Assigned To</th></tr>
+                            </thead>
+                            <tbody id="supportTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 19: DATABASE & RLS SCHEMA -->
+            <section id="view-database" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 19: Database Architecture & Schema Explorer</h2>
+                        <p>Dual-engine database layer: PostgreSQL with Row-Level Security (RLS) for enterprise scale, and SQLite for embedded/air-gapped deployment.</p>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Database Architecture Overview</h3></div>
+                    <div class="code-preview">
+-- Dual-Engine Architecture
+Engine: PostgreSQL 16+ (Production) | SQLite 3 (Embedded/Local)
+Row-Level Security: ENABLED & FORCED
+CREATE POLICY tenant_isolation ON certificates 
+  FOR ALL TO clm_user 
+  USING (tenant_id = current_setting('clm.current_tenant', true));
+
+Active Tables (27 Modules):
+- organizations, verification_documents, subscriptions, plans, invoices, payments
+- tenants, environments, departments, teams, users, identity_providers
+- cloud_accounts, gateways, enrollment_tokens, deployment_jobs, targets, profiles
+- certificate_requests, approvals, certificates, audit_events, security_events
+- discovery_scans, discovery_findings, service_health, compliance_controls
+- notifications, support_tickets, backup_records, ai_insights, integrations
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 20: DEVELOPER API & SDK -->
+            <section id="view-developer" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 20: Developer Portal, REST API & SDKs</h2>
+                        <p>Fully documented REST API with OpenAPI 3.1 schema specification, Go SDK, and the `clm` command-line utility.</p>
+                    </div>
+                    <a href="/api/openapi.json" target="_blank" class="btn btn-secondary">View OpenAPI Spec</a>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>API Quick Reference & CLI Usage</h3></div>
+                    <div class="code-preview">
+# Install CLM CLI
+curl -sSL https://raw.githubusercontent.com/GOKUL-THAN/new-clm/main/scripts/install.sh | bash
+
+# Check system health & doctor
+clm doctor
+
+# Request certificate via CLI
+clm cert request --cn api.example.com --profile web-server --pqc-hybrid
+
+# Run sub-second network TLS discovery
+clm inventory scan --cidr 10.0.0.0/24 --port 443,8443
+
+# Verify Merkle audit ledger
+clm audit verify --tenant tenant_default
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 21: CI/CD & SBOM SUPPLY -->
+            <section id="view-cicd" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 21: DevOps, CI/CD Pipeline & Supply Chain Security</h2>
+                        <p>Automated GitHub Actions workflows, multi-stage Docker builds, and CycloneDX 1.6 Cryptographic Bill of Materials (CBOM).</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="exportCBOMJSON()">Export CycloneDX CBOM</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Live CycloneDX 1.6 CBOM Preview</h3></div>
+                    <div class="cbom-view">
+                        <pre id="cbomContent" class="code-preview">Generating Cryptographic Bill of Materials...</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 22: DISASTER RECOVERY & BACKUPS -->
+            <section id="view-dr" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 22: Disaster Recovery & Automated Backups</h2>
+                        <p>Point-In-Time Recovery (PITR), encrypted database snapshots, RTO &lt; 5 minutes, RPO &lt; 1 minute, and automated restoration testing.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Creating manual snapshot...')">+ Create Snapshot</button>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card green"><span class="metric-title">RTO (Target)</span><h3>&lt; 5 min</h3><span class="metric-sub">Recovery Time Objective</span></div>
+                    <div class="metric-card green"><span class="metric-title">RPO (Target)</span><h3>&lt; 1 min</h3><span class="metric-sub">Recovery Point Objective</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Last Snapshot</span><h3>Today 03:00 UTC</h3><span class="metric-sub">AES-256 Encrypted</span></div>
+                    <div class="metric-card cyan"><span class="metric-title">Restore Test</span><h3>Verified OK</h3><span class="metric-sub">Automated weekly drill</span></div>
+                </div>
+            </section>
+
+            <!-- MODULE 23: ANALYTICS & FORECASTING -->
+            <section id="view-analytics" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 23: Advanced Analytics, Forecasting & Reporting</h2>
+                        <p>Comprehensive telemetry on certificate lifespan, outage probability distribution, MRR financial metrics, and exportable reports.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="exportAnalyticsCSV()">Export CSV Report</button>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card"><span class="metric-title">Monthly Recurring Rev</span><h3>$2,499</h3><span class="metric-sub">Enterprise tier</span></div>
+                    <div class="metric-card green"><span class="metric-title">Outage Risk</span><h3>0.00%</h3><span class="metric-sub">Zero unmonitored certs</span></div>
+                    <div class="metric-card purple"><span class="metric-title">Automated Actions</span><h3>1,420</h3><span class="metric-sub">Last 30 days</span></div>
+                    <div class="metric-card cyan"><span class="metric-title">Avg Renewal Time</span><h3>4.2s</h3><span class="metric-sub">From CSR to deploy</span></div>
+                </div>
+            </section>
+
+            <!-- MODULE 24: WHITE-LABEL BRANDING -->
+            <section id="view-branding" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 24: UI/UX Customization & White-Label Branding</h2>
+                        <p>Custom domain configuration, tenant-specific CSS themes, custom logos, and corporate identity styling.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Theme saved.')">Save Theme</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Brand Styling</h3></div>
+                    <div class="form-group"><label>Platform Title</label><input type="text" class="form-control" value="Acme Enterprise CLM"></div>
+                    <div class="form-group"><label>Primary Accent Color</label><input type="color" value="#3b82f6"></div>
+                    <div class="form-group"><label>Custom Domain</label><input type="text" class="form-control" value="clm.acme.corp"></div>
+                </div>
+            </section>
+
+            <!-- MODULE 25: ARCHITECTURE DIAGRAMS -->
+            <section id="view-architecture" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 25: Architecture Diagrams & Interactive Runbooks</h2>
+                        <p>High-level system topology highlighting the zero-trust hybrid boundary between the Central Control Plane and In-VPC Enclaves.</p>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Hybrid Enclave Trust Boundary</h3></div>
+                    <div class="code-preview">
++--------------------------------------------------------------------------+
+|                       CENTRAL CONTROL PLANE                             |
+|  (Hosted on Vercel / Render / Kubernetes with Zero Private Key Access)   |
+|                                                                          |
+|   +-------------------+   +--------------------+   +-----------------+   |
+|   | Policy & SoD      |   | Audit Ledger       |   | CA Connector    |   |
+|   | Dual-Control Rules|   | SHA-256 & Merkle   |   | ACME, DigiCert  |   |
+|   +---------+---------+   +---------+----------+   +--------+--------+   |
+|             |                       |                       |            |
+|             +-----------------------+-----------------------+            |
+|                                     |                                    |
+|                      Outbound-Only Poll (mTLS / HMAC)                    |
++-------------------------------------+------------------------------------+
+                                      ^
+                                      | (Customer VPC Boundary)
++-------------------------------------+------------------------------------+
+|                  CUSTOMER IN-VPC SATELLITE ENCLAVE                       |
+|                                                                          |
+|   +------------------------------------------------------------------+   |
+|   |  Satellite Gateway Daemon (clm-gateway)                          |   |
+|   |  - Ephemeral Memory Enclave / PKCS#11 HSM Module                 |   |
+|   |  - Private keys GENERATED locally, NEVER exported to Cloud       |   |
+|   |  - Automated deployment to local Nginx, ALB, and Kubernetes      |   |
+|   +------------------------------------------------------------------+   |
++--------------------------------------------------------------------------+
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 26: AI RISK INTELLIGENCE -->
+            <section id="view-ai" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 26: AI Predictions, Risk Intelligence & Auto-Remediation</h2>
+                        <p>Machine learning models predicting anomalous renewal patterns, quantum vulnerability scoring, and auto-initiating emergency rollbacks.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Running AI vulnerability scan across all assets...')">⚡ Run AI Analysis</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>AI Intelligence Recommendations</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Insight ID</th><th>Target</th><th>Risk Category</th><th>Severity</th><th>Recommendation</th><th>Auto-Remediation</th></tr>
+                            </thead>
+                            <tbody id="aiTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 27: ECOSYSTEM INTEGRATIONS -->
+            <section id="view-integrations" class="view-panel">
+                <div class="view-header">
+                    <div>
+                        <h2>Module 27: Third-Party Enterprise Ecosystem Integrations</h2>
+                        <p>Turnkey enterprise connectors for ServiceNow CMDB, HashiCorp Vault, Jira Service Management, Splunk SIEM, and Datadog.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="alert('Connecting service...')">+ Connect Integration</button>
+                </div>
+                <div class="panel-section">
+                    <div class="section-header"><h3>Connected Enterprise Services</h3></div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Integration</th><th>Type</th><th>Endpoint / Target</th><th>Status</th><th>Last Event</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody id="integrationsTable"></tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Request Modal -->
-    <div id="requestModal" class="modal-backdrop">
-        <div class="modal">
+    <!-- MODAL: REQUEST CERTIFICATE -->
+    <div id="modalRequestCert" class="modal-overlay">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>Request New Certificate</h3>
-                <span class="close-btn" onclick="closeModal('requestModal')">&times;</span>
+                <h3>Request New X.509 Certificate</h3>
+                <button class="close-btn" onclick="closeModal('modalRequestCert')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Common Name (CN)</label>
-                    <input type="text" id="reqCN" placeholder="e.g. api.acme.com">
+                    <label>Common Name (Primary Domain)</label>
+                    <input type="text" id="reqCommonName" class="form-control" placeholder="e.g. api.acme.com" value="api.acme.com">
                 </div>
                 <div class="form-group">
-                    <label>Subject Alternative Names (SANs, comma separated)</label>
-                    <input type="text" id="reqSANs" placeholder="e.g. api.acme.com, www.acme.com">
+                    <label>Subject Alternative Names (SANs - Comma separated)</label>
+                    <input type="text" id="reqSANs" class="form-control" placeholder="e.g. api.acme.com, auth.acme.com" value="api.acme.com, auth.acme.com">
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Accountable Owner</label>
-                        <input type="text" id="reqOwner" placeholder="e.g. alice@acme.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Assigned Team</label>
-                        <input type="text" id="reqTeam" placeholder="e.g. platform-sre">
-                    </div>
+                <div class="form-group">
+                    <label>Certificate Profile</label>
+                    <select id="reqProfile" class="form-control">
+                        <option value="profile_web_tls">Public Web TLS (RSA-2048 / ECDSA P-256)</option>
+                        <option value="profile_pqc_hybrid">Post-Quantum Hybrid (ML-DSA-65 + ECDSA)</option>
+                        <option value="profile_internal_mtls">Internal Enclave mTLS (Ed25519)</option>
+                    </select>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Profile</label>
-                        <select id="reqProfile">
-                            <option value="prof_web_tls">prod-web-tls (Approval Required)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Algorithm</label>
-                        <select id="reqAlg">
-                            <option value="RSA-2048">RSA 2048-bit</option>
-                            <option value="ECDSA-P256">ECDSA P-256</option>
-                            <option value="ECDSA-P384">ECDSA P-384</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label>Key Generation & Custody Boundary</label>
+                    <select id="reqKeyCustody" class="form-control">
+                        <option value="in-vpc-enclave">In-VPC Enclave (Keys NEVER leave local Gateway)</option>
+                        <option value="hsm-pkcs11">Hardware Security Module (PKCS#11 Enclave)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Certificate Authority Connector</label>
+                    <select id="reqCA" class="form-control">
+                        <option value="ca_internal">Builtin Private CA</option>
+                        <option value="ca_acme">Let's Encrypt (ACME v2)</option>
+                        <option value="ca_digicert">DigiCert CertCentral</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('requestModal')">Cancel</button>
-                <button class="btn btn-primary" onclick="submitCertRequest()">Submit Request</button>
+                <button class="btn btn-secondary" onclick="closeModal('modalRequestCert')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitCertificateRequest()">Submit Request & Sign</button>
             </div>
         </div>
     </div>
 
-    <!-- Enroll Gateway Modal -->
-    <div id="enrollGatewayModal" class="modal-backdrop">
-        <div class="modal">
+    <!-- MODAL: ENROLL GATEWAY -->
+    <div id="modalEnrollGateway" class="modal-overlay">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3>Enroll Satellite Gateway</h3>
-                <span class="close-btn" onclick="closeModal('enrollGatewayModal')">&times;</span>
+                <h3>Enroll In-VPC Satellite Gateway</h3>
+                <button class="close-btn" onclick="closeModal('modalEnrollGateway')">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Generate a one-time enrollment token to connect an in-VPC gateway enclave.</p>
-                <button class="btn btn-primary" onclick="createEnrollmentToken()">Generate One-Time Token</button>
-                <div id="enrollTokenDisplay" style="margin-top: 1rem; display: none;">
-                    <label>One-Time Token (expires in 24h):</label>
-                    <textarea id="tokenText" readonly rows="2" style="width: 100%; font-family: monospace;"></textarea>
-                    <pre id="helmCommand" style="background: #111827; color: #10b981; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; margin-top: 0.5rem;"></pre>
+                <div class="form-group">
+                    <label>Gateway Name</label>
+                    <input type="text" id="gwName" class="form-control" placeholder="e.g. gw-aws-prod-us-east-1" value="gw-vpc-production">
                 </div>
+                <div class="form-group">
+                    <label>Target Environment / VPC</label>
+                    <select id="gwEnv" class="form-control">
+                        <option value="env_production">Production (AWS VPC 10.0.0.0/16)</option>
+                        <option value="env_staging">Staging (Azure VNet 172.16.0.0/16)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>One-Time Enrollment Token</label>
+                    <div style="display:flex; gap: 0.5rem;">
+                        <input type="text" id="gwEnrollToken" class="form-control" readonly value="clm_tok_9f81a7b24e601c53">
+                        <button class="btn btn-secondary" onclick="generateGatewayToken()">Generate</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Docker Enclave Command</label>
+                    <div class="code-preview" id="gwDockerCmd">
+docker run -d --name clm-gateway \
+  -e CLM_ENROLL_TOKEN=clm_tok_9f81a7b24e601c53 \
+  -e CLM_API_URL=https://new-clm.onrender.com \
+  -v /var/run/clm:/keys \
+  ghcr.io/gokul-than/clm-gateway:latest
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modalEnrollGateway')">Close</button>
+                <button class="btn btn-primary" onclick="confirmGatewayEnrollment()">Register & Activate</button>
             </div>
         </div>
     </div>
+
+    <!-- MODAL: CONNECT CLOUD ACCOUNT -->
+    <div id="modalConnectCloud" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Connect Cloud Infrastructure Provider</h3>
+                <button class="close-btn" onclick="closeModal('modalConnectCloud')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Cloud Provider</label>
+                    <select id="cloudProvider" class="form-control">
+                        <option value="aws">Amazon Web Services (AWS IAM Role)</option>
+                        <option value="azure">Microsoft Azure (Managed Identity / SP)</option>
+                        <option value="gcp">Google Cloud Platform (Workload Identity)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Account / Subscription ID</label>
+                    <input type="text" id="cloudAccountId" class="form-control" placeholder="e.g. 123456789012" value="987654321098">
+                </div>
+                <div class="form-group">
+                    <label>Account Label / Name</label>
+                    <input type="text" id="cloudAccountName" class="form-control" placeholder="e.g. AWS Production Workloads" value="AWS Staging Enclave">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modalConnectCloud')">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmConnectCloud()">Verify & Connect</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: NEW SUBNET DISCOVERY SCAN -->
+    <div id="modalDiscoveryScan" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Launch Network TLS Handshake Scanner</h3>
+                <button class="close-btn" onclick="closeModal('modalDiscoveryScan')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Target CIDR / Host Range</label>
+                    <input type="text" id="scanTarget" class="form-control" placeholder="e.g. 192.168.1.0/24 or app.internal" value="10.200.0.0/24">
+                </div>
+                <div class="form-group">
+                    <label>Target Ports</label>
+                    <input type="text" id="scanPorts" class="form-control" value="443, 8443, 9443">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modalDiscoveryScan')">Cancel</button>
+                <button class="btn btn-primary" onclick="startDiscoveryScan()">Start Network Scan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TRIGGER DEPLOYMENT JOB -->
+    <div id="modalTriggerJob" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Trigger Certificate Push Job</h3>
+                <button class="close-btn" onclick="closeModal('modalTriggerJob')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Certificate To Deploy</label>
+                    <select id="jobCertSelect" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label>Target Infrastructure</label>
+                    <select id="jobTargetSelect" class="form-control">
+                        <option value="target_aws_alb">AWS Application Load Balancer (prod-alb-us-east-1)</option>
+                        <option value="target_k8s_ingress">Kubernetes Ingress (nginx-ingress / istio-gw)</option>
+                        <option value="target_f5_bigip">F5 BIG-IP Edge Controller</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Rollout Strategy</label>
+                    <select id="jobRolloutStrategy" class="form-control">
+                        <option value="canary">Canary Rollout (10% &rarr; 50% &rarr; 100% with Health Verification)</option>
+                        <option value="blue_green">Blue-Green Atomic Switch</option>
+                        <option value="rolling">Rolling Node-by-Node Push</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modalTriggerJob')">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmTriggerJob()">Dispatch Deployment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: API & BACKEND CONFIGURATION -->
+    <div id="modalApiConfig" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Backend API Connection Configuration</h3>
+                <button class="close-btn" onclick="closeModal('modalApiConfig')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Operating Mode</label>
+                    <select id="configOperatingMode" class="form-control" onchange="toggleApiUrlInput()">
+                        <option value="auto">Auto (Attempt Live API &rarr; Fallback to In-Browser Enclave)</option>
+                        <option value="live">Live Backend API Only</option>
+                        <option value="standalone">In-Browser Standalone Enclave (Zero-Network Mock)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Custom Backend API URL</label>
+                    <input type="text" id="configApiUrl" class="form-control" placeholder="https://new-clm.onrender.com or http://localhost:8080" value="">
+                    <span style="font-size: 0.72rem; color: #94a3b8; display: block; margin-top: 0.25rem;">
+                        Leave empty to use relative <code>/api/v1</code> or enter your live Render URL.
+                    </span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('modalApiConfig')">Cancel</button>
+                <button class="btn btn-primary" onclick="saveApiConfig()">Apply & Reconnect</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer" class="toast-container"></div>
 
     <script src="app.js"></script>
 </body>
