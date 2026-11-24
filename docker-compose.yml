@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: clm-db
+    environment:
+      POSTGRES_USER: clm_app_role
+      POSTGRES_PASSWORD: secret_password
+      POSTGRES_DB: clm
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clm_app_role -d clm"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile.api
+    container_name: clm-api
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      CLM_DATABASE_URL: postgres://clm_app_role:secret_password@db:5432/clm?sslmode=disable
+      PORT: "8080"
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile.worker
+    container_name: clm-worker
+    depends_on:
+      db:
+        condition: service_healthy
+      api:
+        condition: service_started
+    environment:
+      CLM_DATABASE_URL: postgres://clm_app_role:secret_password@db:5432/clm?sslmode=disable
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile.gateway
+    container_name: clm-gateway
+    depends_on:
+      api:
+        condition: service_started
+    environment:
+      CLM_GATEWAY_CONTROL_PLANE_URL: http://api:8080
+      CLM_GATEWAY_KEYSTORE_TYPE: software
+    restart: unless-stopped
+
+volumes:
+  pgdata:

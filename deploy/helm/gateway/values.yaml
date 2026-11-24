@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: clm-gateway
+  pullPolicy: IfNotPresent
+  tag: "1.0.0"
+
+controlPlane:
+  url: "https://clm.example.com"
+
+enrollment:
+  token: ""
+
+keystore:
+  type: "pkcs11"
+  module: "/usr/lib/softhsm/libsofthsm2.so"
+  pinSecretRef: "hsm-pin-secret"
+
+policy:
+  graceWindow: "72h"
+  maxClockSkew: "30s"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

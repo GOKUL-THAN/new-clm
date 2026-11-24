@@ -1,0 +1,122 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Certificate Lifecycle Management (CLM) API",
+    "version": "1.0.0",
+    "description": "Enterprise Control Plane for automated X.509 certificate lifecycle, policy governance, and key custody."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/healthz": {
+      "get": {
+        "summary": "Health check endpoint",
+        "responses": {
+          "200": {
+            "description": "Platform status OK"
+          }
+        }
+      }
+    },
+    "/tenants": {
+      "get": {
+        "summary": "List all tenants",
+        "responses": {
+          "200": {
+            "description": "List of tenants"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new tenant",
+        "responses": {
+          "201": {
+            "description": "Tenant created"
+          }
+        }
+      }
+    },
+    "/gateways": {
+      "get": {
+        "summary": "List satellite gateways for tenant",
+        "responses": {
+          "200": {
+            "description": "Gateways"
+          }
+        }
+      }
+    },
+    "/gateways/enrollment-tokens": {
+      "post": {
+        "summary": "Create one-time gateway enrollment token",
+        "responses": {
+          "201": {
+            "description": "Token created"
+          }
+        }
+      }
+    },
+    "/gateways/enroll": {
+      "post": {
+        "summary": "Enroll satellite gateway using one-time token",
+        "responses": {
+          "200": {
+            "description": "Enrollment successful with client certificate"
+          }
+        }
+      }
+    },
+    "/certificate-requests": {
+      "get": {
+        "summary": "List certificate requests",
+        "responses": {
+          "200": {
+            "description": "List of requests"
+          }
+        }
+      },
+      "post": {
+        "summary": "Submit a certificate request",
+        "responses": {
+          "202": {
+            "description": "Request accepted for processing"
+          }
+        }
+      }
+    },
+    "/certificates": {
+      "get": {
+        "summary": "List managed certificates",
+        "responses": {
+          "200": {
+            "description": "Certificates inventory"
+          }
+        }
+      }
+    },
+    "/reports/cbom": {
+      "get": {
+        "summary": "Export Cryptographic Bill of Materials (CycloneDX format)",
+        "responses": {
+          "200": {
+            "description": "CBOM JSON"
+          }
+        }
+      }
+    },
+    "/audit/verify": {
+      "get": {
+        "summary": "Verify Merkle tree and hash chain integrity",
+        "responses": {
+          "200": {
+            "description": "Audit verification report"
+          }
+        }
+      }
+    }
+  }
+}

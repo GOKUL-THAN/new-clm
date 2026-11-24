@@ -1,0 +1,27 @@
+# examples/prod-web-tls.yaml
+profile:
+  name: prod-web-tls
+  description: High-security production web TLS certificate profile
+  allowed_cas:
+    - letsencrypt
+    - digicert-public
+  algorithms:
+    - ECDSA-P256
+    - RSA-3072
+  validity_days_max: 90
+  san:
+    allowed_suffixes:
+      - ".acme.com"
+      - ".acme.net"
+    wildcard: require_approval
+  approval:
+    required: true
+    approver_roles:
+      - security-operations
+      - pki-lead
+  renewal:
+    automatic: true
+    start_before_days: 30
+  caa_check: enforce
+  key_custody:
+    non_exportable_required: true

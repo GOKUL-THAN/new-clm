@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Lifecycle Management (CLM)</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h2>CLM Control Plane</h2>
+                    <span class="badge badge-purple">Hybrid Enclave</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" onclick="switchTab('dashboard')">
+                    <span class="icon">📊</span> Overview & Health
+                </a>
+                <a href="#certificates" class="nav-item" onclick="switchTab('certificates')">
+                    <span class="icon">📜</span> Certificates Inventory
+                </a>
+                <a href="#requests" class="nav-item" onclick="switchTab('requests')">
+                    <span class="icon">⏳</span> Requests & Approvals
+                </a>
+                <a href="#gateways" class="nav-item" onclick="switchTab('gateways')">
+                    <span class="icon">🛡️</span> Satellite Gateways
+                </a>
+                <a href="#cbom" class="nav-item" onclick="switchTab('cbom')">
+                    <span class="icon">⚛️</span> CBOM & Post-Quantum
+                </a>
+                <a href="#audit" class="nav-item" onclick="switchTab('audit')">
+                    <span class="icon">⛓️</span> Merkle Audit Ledger
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="tenant-selector">
+                    <label>Tenant Boundary</label>
+                    <select id="tenantSelect" onchange="reloadAll()">
+                        <option value="tenant_default">Acme Global (tenant_default)</option>
+                    </select>
+                </div>
+                <div class="system-status">
+                    <span class="status-dot green"></span>
+                    <span>Control Plane: Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb-root">CLM</span> / <span id="currentViewTitle">Overview & Health</span>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-secondary" onclick="openEnrollGatewayModal()">+ Enroll Gateway</button>
+                    <button class="btn btn-primary" onclick="openRequestCertModal()">+ Request Certificate</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Tab -->
+            <section id="view-dashboard" class="view-panel active">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <span class="metric-title">Active Certificates</span>
+                        <h3 id="statTotalCerts">0</h3>
+                        <span class="metric-sub text-green">100% Automated renewals</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-title">Expiring Soon (&lt; 30d)</span>
+                        <h3 id="statExpiringSoon" class="text-amber">0</h3>
+                        <span class="metric-sub">Auto-renewal scheduled</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-title">Online Gateways</span>
+                        <h3 id="statGateways" class="text-blue">0</h3>
+                        <span class="metric-sub">In-VPC Enclaves</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-title">Crypto Agility (PQC)</span>
+                        <h3 id="statPQCReadiness">Ready</h3>
+                        <span class="metric-sub text-purple">ML-DSA / Hybrid capable</span>
+                    </div>
+                </div>
+
+                <!-- Risk & Expiry Heatmap -->
+                <div class="panel-section">
+                    <div class="section-header">
+                        <h3>Certificate Expiry & Risk Distribution</h3>
+                        <span class="badge badge-info">SC-081 Ready (47-day cycle)</span>
+                    </div>
+                    <div class="heatmap-bar">
+                        <div id="heatCritical" class="heat-segment heat-red" style="width: 5%" title="Expired / Critical Risk"></div>
+                        <div id="heatWarning" class="heat-segment heat-amber" style="width: 15%" title="Expiring in < 30 days"></div>
+                        <div id="heatHealthy" class="heat-segment heat-green" style="width: 80%" title="Healthy Active Certificates"></div>
+                    </div>
+                    <div class="heatmap-legend">
+                        <span><span class="dot red"></span> Critical / Expired</span>
+                        <span><span class="dot amber"></span> Renewal Window (&lt; 30d)</span>
+                        <span><span class="dot green"></span> Compliant & Healthy</span>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Table -->
+                <div class="panel-section">
+                    <div class="section-header">
+                        <h3>Managed Certificates Summary</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Common Name / SAN</th>
+                                    <th>Status</th>
+                                    <th>Algorithm</th>
+                                    <th>Issuer</th>
+                                    <th>Expires In</th>
+                                    <th>Risk Score</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboardCertsTable">
+                                <tr><td colspan="7" class="text-center">Loading certificates...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificates Tab -->
+            <section id="view-certificates" class="view-panel">
+                <div class="section-header">
+                    <h3>X.509 Certificate Inventory</h3>
+                    <div class="filter-controls">
+                        <input type="text" id="certSearchInput" placeholder="Filter by domain, SAN, or owner..." oninput="filterCertTable()">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Fingerprint (SHA-256)</th>
+                                <th>Subject DN</th>
+                                <th>Algorithm / Size</th>
+                                <th>Status</th>
+                                <th>Validity Period</th>
+                                <th>Owner / Team</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="fullCertsTable">
+                            <tr><td colspan="7" class="text-center">Loading inventory...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Requests & Approvals Tab -->
+            <section id="view-requests" class="view-panel">
+                <div class="section-header">
+                    <h3>Certificate Requests & Peer Approvals</h3>
+                    <span class="badge badge-amber">Segregation of Duties Enforced</span>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Common Name</th>
+                                <th>Profile</th>
+                                <th>Requester</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTable">
+                            <tr><td colspan="7" class="text-center">Loading requests...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Gateways Tab -->
+            <section id="view-gateways" class="view-panel">
+                <div class="section-header">
+                    <h3>Satellite Gateway Fleet (In-VPC Enclaves)</h3>
+                    <span class="badge badge-purple">Keys never leave customer boundary</span>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Gateway ID</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Keystore Custody</th>
+                                <th>Version</th>
+                                <th>Last Heartbeat</th>
+                                <th>Policy Grace</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gatewaysTable">
+                            <tr><td colspan="7" class="text-center">Loading gateways...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- CBOM Tab -->
+            <section id="view-cbom" class="view-panel">
+                <div class="section-header">
+                    <h3>Cryptographic Bill of Materials (CBOM) & PQC Readiness</h3>
+                    <button class="btn btn-secondary" onclick="exportCBOMJSON()">Export CycloneDX JSON</button>
+                </div>
+                <div class="cbom-view">
+                    <pre id="cbomContent">Generating CBOM...</pre>
+                </div>
+            </section>
+
+            <!-- Audit Tab -->
+            <section id="view-audit" class="view-panel">
+                <div class="section-header">
+                    <h3>Cryptographic Audit Ledger & Merkle Proofs</h3>
+                    <button class="btn btn-primary" onclick="verifyAuditLedger()">Verify Hash Chain & STH</button>
+                </div>
+                <div id="auditVerifyReport" class="audit-report-banner">
+                    Click "Verify Hash Chain & STH" to execute independent Merkle proof.
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Seq #</th>
+                                <th>Timestamp</th>
+                                <th>Actor</th>
+                                <th>Action</th>
+                                <th>Target</th>
+                                <th>Policy Decision</th>
+                                <th>Event Hash</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditTable">
+                            <tr><td colspan="7" class="text-center">Loading audit events...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Request Modal -->
+    <div id="requestModal" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Request New Certificate</h3>
+                <span class="close-btn" onclick="closeModal('requestModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Common Name (CN)</label>
+                    <input type="text" id="reqCN" placeholder="e.g. api.acme.com">
+                </div>
+                <div class="form-group">
+                    <label>Subject Alternative Names (SANs, comma separated)</label>
+                    <input type="text" id="reqSANs" placeholder="e.g. api.acme.com, www.acme.com">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Accountable Owner</label>
+                        <input type="text" id="reqOwner" placeholder="e.g. alice@acme.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Assigned Team</label>
+                        <input type="text" id="reqTeam" placeholder="e.g. platform-sre">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Profile</label>
+                        <select id="reqProfile">
+                            <option value="prof_web_tls">prod-web-tls (Approval Required)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Algorithm</label>
+                        <select id="reqAlg">
+                            <option value="RSA-2048">RSA 2048-bit</option>
+                            <option value="ECDSA-P256">ECDSA P-256</option>
+                            <option value="ECDSA-P384">ECDSA P-384</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('requestModal')">Cancel</button>
+                <button class="btn btn-primary" onclick="submitCertRequest()">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enroll Gateway Modal -->
+    <div id="enrollGatewayModal" class="modal-backdrop">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Enroll Satellite Gateway</h3>
+                <span class="close-btn" onclick="closeModal('enrollGatewayModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Generate a one-time enrollment token to connect an in-VPC gateway enclave.</p>
+                <button class="btn btn-primary" onclick="createEnrollmentToken()">Generate One-Time Token</button>
+                <div id="enrollTokenDisplay" style="margin-top: 1rem; display: none;">
+                    <label>One-Time Token (expires in 24h):</label>
+                    <textarea id="tokenText" readonly rows="2" style="width: 100%; font-family: monospace;"></textarea>
+                    <pre id="helmCommand" style="background: #111827; color: #10b981; padding: 0.75rem; border-radius: 4px; font-size: 0.8rem; margin-top: 0.5rem;"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# examples/policy-zero-trust.yaml
+policy:
+  name: zero-trust-enterprise-governance
+  version: 1
+  rules:
+    cryptography:
+      min_rsa_bits: 2048
+      prohibited_digests: [SHA1, MD5]
+      quantum_readiness: enable_cbom_tracking
+    governance:
+      require_owner: true
+      require_team: true
+      segregation_of_duties: true
+      max_validity_days: 90
+    break_glass:
+      step_up_mfa_required: true
+      mandatory_post_audit: true
+    audit:
+      merkle_anchoring: true
+      rfc3161_timestamp: true
